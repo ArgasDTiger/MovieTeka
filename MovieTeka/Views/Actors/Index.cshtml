@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model MovieTeka.ViewModels.IndexViewModel
+
+<main class="container">
+    @for (var i = 0; i < Model.Actors.Count(); i++)
+    {
+        var actor = Model.Actors.ElementAt(i);
+        var buttonViewModel = Model.ButtonViewModels.ElementAt(i);
+
+        <div class="col-1-5">
+            <div class="movie">
+                <a class="movie-title" asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.Id">@actor.Name</a>
+                <a asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.Id"><img class="movie-img" src="@actor.Image" alt=""></a>
+
+                @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                {
+                    <a class="btn btn-view-admin" asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.Id">View</a>
+                    <a class="btn btn-view-admin" asp-controller="Actors" asp-action="Edit" asp-route-id="@actor.Id">Edit</a>
+                    <a class="btn btn-view-admin" asp-controller="Actors" asp-action="Delete" asp-route-id="@actor.Id">Delete</a>
+                    <form asp-controller="Actors" asp-action="@buttonViewModel.ButtonAction" method="post">
+                        <input type="hidden" name="actorId" value="@actor.Id"/>
+                        <button id="favorite-button" class="btn btn-add-to-liked-admin" type="submit">@buttonViewModel.ButtonName</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-add-to-liked" asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.Id">View</a>
+                    <form asp-controller="Actors" asp-action="@buttonViewModel.ButtonAction" method="post">
+                        <input type="hidden" name="movieId" value="@actor.Id"/>
+                        <button class="btn btn-add-to-liked" type="submit">@buttonViewModel.ButtonName</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script >
+//FIND OUT HOW THE HELL IT WORKS
+$(document).ready(function() {
+    $('form').on('submit', function(event) {
+        event.preventDefault();
+        var form = $(this);
+        var url = form.attr('action');
+        var data = form.serialize();
+        $.post(url, data, function(response) {
+            // Update the page content with the response
+            // For example, you can update the button text and action
+            var button = form.find('button');
+            if (response.action === 'AddToFavorites') {
+                button.text('Add to Favorites');
+                form.attr('action', '/Movies/AddToFavorites');
+            } else if (response.action === 'RemoveFromFavorites') {
+                button.text('Remove from Favorites');
+                form.attr('action', '/Movies/RemoveFromFavorites');
+            }
+        });
+    });
+});
+
+</script>

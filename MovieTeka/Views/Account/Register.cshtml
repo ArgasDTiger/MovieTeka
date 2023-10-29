@@ -1,0 +1,41 @@
+﻿@model MovieTeka.ViewModels.RegisterViewModel
+
+<main class="forms-container container">
+<h1>Create New Account</h1>
+@if(TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"]</span>
+    </div>
+}
+    <form asp-action="Register">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label class="movie-actions-label" asp-for="Username"></label>
+            <input class="movie-actions-input" asp-for="Username" />
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="movie-actions-label" asp-for="EmailAddress"></label>
+            <input class="movie-actions-input" asp-for="EmailAddress"/>
+            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="movie-actions-label" asp-for="Password"></label>
+            <input class="movie-actions-input" asp-for="Password"/>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="movie-actions-label" asp-for="ConfirmPassword"></label>
+            <input class="movie-actions-input" asp-for="ConfirmPassword"/>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+
+        <div class="btn-group">
+            <input class="btn-submit btn" type="submit" value="Sign up"/>
+            <a class="btn-submit btn" asp-controller="Home" asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</main>

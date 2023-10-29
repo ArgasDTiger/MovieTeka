@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] MovieTeka</title>
+    <link rel="stylesheet" href="~/css/reset.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/thinline.css">
+
+
+</head>
+<body>
+<header>
+    <nav class="nav container">
+        <a asp-controller="Home" asp-action="Index"><img src="~/images/Logo.png" alt=""></a>
+        <ul>
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li><!--
+            --><li><a asp-controller="Movies" asp-action="Index">Movies</a></li><!--
+            --><li><a asp-controller="Actors" asp-action="Index">Actors</a></li>
+            
+        
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li><a asp-controller="Account" asp-action="">Profile</a></li>
+            <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+        }
+        else
+        {
+        <li><a asp-controller="Account" asp-action="Login">Login</a></li><!--
+        --><li><a asp-controller="Account" asp-action="Register">Register</a></li>
+        }
+        </ul>
+    </nav>
+</header>
+    <main role="main">
+        @RenderBody()
+    </main>
+
+<footer>
+    &copy; 2023 - MovieTeka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

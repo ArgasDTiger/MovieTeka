@@ -1,0 +1,41 @@
+﻿@model MovieTeka.ViewModels.CreateActorViewModel
+
+<script >
+document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('keydown', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+</script>
+
+
+<main class="forms-container container">
+<h1>Creating</h1>
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Name">Name</label>
+        <input class="movie-actions-input" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Country">Country</label>
+        <input class="movie-actions-input" asp-for="Country">
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="DateOfBirth">Date of Birth</label>
+        <input type="text" class="movie-actions-input" asp-for="DateOfBirth" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Image">Image</label>
+        <input asp-for="Image" type="file">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button class="btn-submit btn" type="submit">Submit</button>
+</form>
+</main>

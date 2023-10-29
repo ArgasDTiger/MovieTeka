@@ -1,0 +1,333 @@
+:root {
+  --backgound-color: #1c1c1c;
+  --container-background: #2c2c2c;
+  --font-color: #c7c7c7;
+}
+
+body {
+  background-color: var(--backgound-color);
+  color: var(--font-color);
+  font-family: sans-serif, Arial ;
+}
+
+b {
+  font-weight: 600;
+}
+.container {
+  background-color: var(--container-background);
+  border-radius: 1%;
+  padding: 15px;
+  margin: 30px;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap; /*lets a new row to appear*/
+  justify-content: space-between; /*dunno yet*/
+}
+
+.col-1-5 {
+  background-color: var(--backgound-color);
+  border-radius: 3%;
+  width: calc(20% - 10px);
+  box-sizing: border-box;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.movie-title {
+  color: #cccccc;
+  font-size: 1.2em;
+  margin-top: -0.1px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+}
+
+.movie-title:hover {
+  color: #a6a6a6;
+  transition: 0.3s;
+}
+
+.movie img {
+  max-width: 100%;
+  border-radius: 3%;
+  height: 400px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+/*when I change "add to liked" button to star, then margin-left will be 25%*/
+.user-movie-p {
+  text-align: right;
+  display: inline-block;
+  margin-left: 10%;
+  font-size: 15px;
+}
+
+.admin-movie-p {
+  text-align: right;
+  display: inline-block;
+  margin-left: 10%;
+  font-size: 15px;
+}
+
+/*
+  ========================================
+  Buttons
+  ========================================
+ */
+.btn {
+  
+  color: #1c1c1c;
+  background-color: #cccccc;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+  text-decoration: none;
+  padding: 8px 14px;
+}
+
+.btn:hover {
+  background-color: #a6a6a6;
+  transition: s;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group .btn {
+  height: fit-content;
+  border: none;
+}
+
+.btn-view {
+  margin-left: 15%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.btn-view-admin {
+  font-size: 13px;
+  margin-left: 0.5%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.btn-submit {
+  background-color: #dddbdb;
+  padding: 8px 24px;
+  font-size: 16px;
+  display: inline-flex;
+  margin-right: 3%;
+  margin-top: 2%;
+}
+
+.btn-view-admin:first-child {
+  margin-left: 4%;
+}
+
+.btn-add-to-liked {
+  display: inline-block;
+  margin-left: 0.5%;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.btn-add-to-liked:first-child {
+  margin-left: 4%;
+}
+
+.btn-add-to-liked-admin {
+  display: block;
+  text-align: center;
+  width: 62%;
+}
+
+
+
+/*
+    =======================================
+    Navigation
+    =======================================
+*/
+.nav {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-decoration: none;
+  background: linear-gradient(to right top, #121212, #464141);
+}
+
+.nav li {
+  display: inline-block;
+  margin: 0 10px;
+  vertical-align: top;
+  margin-top: 10px;
+}
+
+.nav a {
+  color: #cccccc;
+  text-decoration: none;
+}
+.nav img {
+  max-width: 200px;
+}
+
+/*
+    =======================================
+    Forms
+    =======================================
+*/
+
+.movie-actions-label
+{
+  display: block;
+  margin: 10px;
+  cursor: pointer;
+  font-size: 1.1em;
+}
+
+.movie-actions-label:hover {
+  color: #a6a6a6;
+  transition: 0.3s;
+}
+
+.movie-actions-input
+{
+  display: block;
+  border: 1px solid #c6c9cc;
+  background-color: #d7d6d6;
+  border-radius: 5px;
+  margin: 10px;
+  height: 30px;
+  width: 50vw;
+  color:#2a2828;
+}
+
+.movie-actions-input:focus {
+  outline: 2px solid #888888;
+  outline-offset: 4px;
+}
+
+.forms-container
+{
+  position: relative;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  justify-content: center;
+}
+
+.forms-container h1
+{
+  display: block;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+/*
+    =======================================
+    Trivials
+    =======================================
+*/
+
+.text-danger {
+  display: block;
+  color: #dc3545;
+  font-size: 0.8em;
+  margin-left: 11px;    
+}
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-danger {
+  background-color: #cdb4b4;
+  border-color:   #b38585;
+  color: #b30000;
+}
+
+/*
+  =======================================
+  Chips
+  =======================================
+*/
+
+
+.movie-chips ul {
+  display: flex;
+  min-height: 30px;
+  text-align: left;
+  align-items: center;
+  flex-wrap: wrap;
+  position: relative;
+  padding: 5px 0 0 5px;
+}
+
+.movie-chips li {
+  display: inline-flex;
+  margin: 0 5px 5px 5px;
+  padding: 5px 8px;
+  border: 1px solid #ada7a7;
+  border-radius: 6px;
+  background-color: #dbd2d2;
+}
+
+.movie-chips i {
+  cursor: pointer;
+  margin-left: 6px;
+}
+.movie-chips i:hover {
+  background-color: #ccc6c6;
+  border-radius: 50%;
+}
+
+
+#actorsUl {
+  display: block;
+  border: 1px solid #c6c9cc;
+  background-color: #d7d6d6;
+  border-radius: 5px;
+  margin: 10px;
+  width: 50vw;
+  color:#2a2828;
+}
+
+#actorsUl:focus {
+  outline: 2px solid #888888;
+  outline-offset: 4px;
+}
+
+#actorsUl li,
+#actorsInput {
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+
+
+#actorsInput {
+  display: inline-flex;
+  width: 12.8vw;
+  height: auto;
+  background-color: #d7d6d6;
+  border: none;
+}
+
+
+#actorsInput:focus {
+  outline: none;
+}

@@ -1,0 +1,52 @@
+﻿@model MovieTeka.ViewModels.CreateMovieViewModel
+
+<script >
+document.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('keydown', function(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+</script>
+
+
+<main class="forms-container container">
+<h1>Creating</h1>
+<form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Title">Title</label>
+        <input class="movie-actions-input" asp-for="Title">
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Country">Country</label>
+        <input class="movie-actions-input" asp-for="Country">
+        <span asp-validation-for="Country" class="text-danger"></span>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Director">Director</label>
+        <input class="movie-actions-input" asp-for="Director">
+        <span asp-validation-for="Director" class="text-danger"></span>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="PG">PG</label>
+        <input class="movie-actions-input" asp-for="PG">
+        <span asp-validation-for="PG" class="text-danger"></span>
+    </div>
+    <!-- asp-for isnt used yet -->
+    <div class="movie-actions movie-chips">
+        <label class="movie-actions-label" for="actorInput" onclick="createTag()">Actors</label>
+        <ul id="actorsUl">
+            <input id="actorsInput" type="text" name="Actors" placeholder="Click here to add a new actor">
+         </ul>
+    </div>
+    <div class="movie-actions">
+        <label class="movie-actions-label" asp-for="Image">Image</label>
+        <input asp-for="Image" type="file">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+    <button class="btn-submit btn" type="submit">Submit</button>
+</form>
+</main>
