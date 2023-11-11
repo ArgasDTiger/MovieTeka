@@ -1,6 +1,9 @@
 ﻿@model MovieTeka.ViewModels.EditMovieViewModel
+@{
+    var jsonActorNames = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ActorNames);
+}
 
-<script >
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('keydown', function(event) {
       if (event.keyCode === 13) {
@@ -8,7 +11,17 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
       }
     });
-  });
+});
+
+window.tags = [];
+
+// Declare tags array in the global scope
+let actors = JSON.parse('@Html.Raw(jsonActorNames)');
+for (let i = 0; i < actors.length; i++) {
+     window.tags.push(actors[i]);
+     console.log(`${actors[i]} is added`);
+}
+   
 </script>
 
 
@@ -44,9 +57,10 @@ document.addEventListener('DOMContentLoaded', function() {
             {
                 foreach (string actor in Model.ActorNames)
                 {
-                    <li>@actor <i class="uit uit-multiply" onclick="remove(this, '${tag}')"></i></li>
+                    <li>@actor <i class="uit uit-multiply" onclick="remove(this, '@actor')"></i></li>
                 }
             }
+
             <input id="actorsInput" type="text" name="Actors" placeholder="Click here to add a new actor">
         </ul>
     </div>

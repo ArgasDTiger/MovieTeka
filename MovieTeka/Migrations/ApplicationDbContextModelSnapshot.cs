@@ -389,6 +389,8 @@ namespace MovieTeka.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ActorId");
+
                     b.ToTable("MovieActor");
                 });
 
@@ -496,6 +498,17 @@ namespace MovieTeka.Migrations
                     b.HasOne("MovieTeka.Models.Movie", null)
                         .WithMany("Genres")
                         .HasForeignKey("MovieId");
+                });
+
+            modelBuilder.Entity("MovieTeka.Models.MovieActor", b =>
+                {
+                    b.HasOne("MovieTeka.Models.Actor", "Actor")
+                        .WithMany()
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
                 });
 
             modelBuilder.Entity("MovieTeka.Models.AppUser", b =>

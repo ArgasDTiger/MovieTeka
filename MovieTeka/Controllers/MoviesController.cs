@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using MovieTeka.Data;
 using MovieTeka.Interfaces;
 using MovieTeka.Models;
@@ -22,12 +20,13 @@ public class MoviesController : Controller
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IPhotoService _photoService;
     private readonly UserManager<AppUser> _userManager;
-    public MoviesController(ApplicationDbContext context, IMovieRepository movieRepository, IHttpContextAccessor httpContextAccessor, IPhotoService photoService, UserManager<AppUser> userManager, IFavoriteMoviesIdRepository favoriteMoviesIdRepository, IMovieActorRepository movieActorRepository)
+    public MoviesController(ApplicationDbContext context, IMovieRepository movieRepository, IHttpContextAccessor httpContextAccessor, IPhotoService photoService, IActorRepository actorRepository, UserManager<AppUser> userManager, IFavoriteMoviesIdRepository favoriteMoviesIdRepository, IMovieActorRepository movieActorRepository)
     {
         _context = context;
         _movieRepository = movieRepository;
         _httpContextAccessor = httpContextAccessor;
         _photoService = photoService;
+        _actorRepository = actorRepository;
         _userManager = userManager;
         _favoriteMoviesIdRepository = favoriteMoviesIdRepository;
         _movieActorRepository = movieActorRepository;
@@ -115,6 +114,7 @@ public class MoviesController : Controller
             PG = movie.PG,
             ActorNames = await _movieActorRepository.GetAllActorNamesByMovieIdAsync(id)
         };
+
         return View(movieVM);
     }
 
@@ -124,23 +124,10 @@ public class MoviesController : Controller
         if (!ModelState.IsValid)
         {
             ModelState.AddModelError("", "Could not edit the movie");
-            var errors = ModelState
-                .Where(x => x.Value.Errors.Count > 0)
-                .Select(x => new { x.Key, x.Value.Errors })
-                .ToArray();
-
-            foreach (var error in errors)
-            {
-                Console.WriteLine($"Key: {error.Key}");
-                foreach (var subError in error.Errors)
-                {
-                    Console.WriteLine($"Error: {subError.ErrorMessage}");
-                }
-            }
             return View("Edit", movieVM);
         }
-
         var userMovie = await _movieRepository.GetByIdAsyncNoTracking(id);
+        
         if (userMovie != null)
         {
             try
@@ -152,7 +139,8 @@ public class MoviesController : Controller
                 ModelState.AddModelError("", "Could not delete the photo");
                 return View(movieVM);
             }
-
+            
+            
             var photoResult = await _photoService.AddPhotoAsync(movieVM.Image);
             var movie = new Movie
             {
@@ -166,28 +154,51 @@ public class MoviesController : Controller
             _movieRepository.Update(movie);
 
             string actorsJson = Request.Form["actorsArray"];
-            List<string> actors = JsonConvert.DeserializeObject<List<string>>(actorsJson);
-
-            foreach (string actor in actors)
+            List<string>? inputActors = JsonConvert.DeserializeObject<List<string>>(actorsJson);
+            
+            var actorsInMovie = await _movieActorRepository.GetAllActorNamesByMovieIdAsync(id);
+            if (inputActors != null)
             {
-                var actorId = await _actorRepository.GetIdByNameAsync(actor);
-                if (actorId != null)
+                foreach (string actor in inputActors)
                 {
-                    var movieActor = new MovieActor
+                    var actorId = await _actorRepository.GetIdByNameAsync(actor);
+
+                    if (actorId == null)
+                        continue;
+                    //if there is already such a connection then do this
+                    if (await _movieActorRepository.GetByMovieAndActorIdAsync(id, (int)actorId) == null)
                     {
-                        MovieId = movieVM.Id,
-                        ActorId = actorId.Value
-                    };
-                    _movieActorRepository.Update(movieActor);
+                        var movieActor = new MovieActor
+                        {
+                            MovieId = movieVM.Id,
+                            ActorId = actorId.Value
+                        };
+                        _movieActorRepository.Update(movieActor);
+                    }
                 }
-
-
             }
+
+            List<string> actorsToRemove = actorsInMovie.Where(name => !inputActors.Contains(name)).ToList();
+            
+            if (actorsToRemove.Count == 0)
+                return RedirectToAction("Index");
+            
+            foreach (var name in actorsToRemove)
+            {
+                var actorId = await _actorRepository.GetIdByNameAsync(name);
+
+                var movieActor = await _movieActorRepository.GetByMovieAndActorIdAsync(id, actorId.Value);
+                if (movieActor != null)
+                    _movieActorRepository.Delete(movieActor);
+            }
+
             return RedirectToAction("Index");
         }
         
         return View(movieVM);
     }
+    
+    
     [Authorize(Roles="admin")]
     public async Task<IActionResult> Delete(int id)
     {

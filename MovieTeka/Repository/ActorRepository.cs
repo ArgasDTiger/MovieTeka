@@ -33,6 +33,8 @@ public class ActorRepository : IActorRepository
         var actor = await _context.Actors.FirstOrDefaultAsync(i => i.Name == name);
         return actor?.Id;
     }
+
+
     
     public bool Add(Actor actor)
     {

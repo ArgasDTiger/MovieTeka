@@ -4,11 +4,12 @@ namespace MovieTeka.Interfaces;
 
 public interface IMovieActorRepository
 {
-    Task<IEnumerable<MovieActor>> GetAll();
-    Task<MovieActor> GetByIdAsync(int id);
-    Task<MovieActor> GetByIdAsyncNoTracking(int id);
-    Task<MovieActor> GetByActorIdAsync(int actorId);
-    Task<MovieActor> GetByMovieIdAsync(int movieId);
+    Task<IEnumerable<MovieActor?>> GetAll();
+    Task<MovieActor?> GetByIdAsync(int id);
+    Task<MovieActor?> GetByIdAsyncNoTracking(int id);
+    Task<MovieActor?> GetByMovieAndActorIdAsync(int movieId, int actorId);
+    Task<MovieActor?> GetByActorIdAsync(int actorId);
+    Task<MovieActor?> GetByMovieIdAsync(int movieId);
     Task<List<string>> GetAllActorNamesByMovieIdAsync(int movieId);
     bool Add(MovieActor movieActor);
     bool Update(MovieActor movieActor);

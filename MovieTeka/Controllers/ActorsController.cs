@@ -17,10 +17,10 @@ public class ActorsController : Controller
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IPhotoService _photoService;
     private readonly UserManager<AppUser> _userManager;
-    public ActorsController(ApplicationDbContext context, IActorRepository ActorRepository, IHttpContextAccessor httpContextAccessor, IPhotoService photoService, UserManager<AppUser> userManager, IFavoriteActorsIdRepository favoriteActorsIdRepository)
+    public ActorsController(ApplicationDbContext context, IActorRepository actorRepository, IHttpContextAccessor httpContextAccessor, IPhotoService photoService, UserManager<AppUser> userManager, IFavoriteActorsIdRepository favoriteActorsIdRepository)
     {
         _context = context;
-        _actorRepository = ActorRepository;
+        _actorRepository = actorRepository;
         _httpContextAccessor = httpContextAccessor;
         _photoService = photoService;
         _userManager = userManager;

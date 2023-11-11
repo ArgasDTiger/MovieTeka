@@ -7,7 +7,6 @@ namespace MovieTeka.Repository;
 
 public class MovieActorRepository : IMovieActorRepository
 {
-    
     private readonly ApplicationDbContext _context;
 
     public MovieActorRepository(ApplicationDbContext context)
@@ -15,27 +14,32 @@ public class MovieActorRepository : IMovieActorRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<MovieActor>> GetAll()
+    public async Task<IEnumerable<MovieActor?>> GetAll()
     {
         return await _context.MovieActor.ToListAsync();
     }
 
-    public async Task<MovieActor> GetByIdAsync(int id)
+    public async Task<MovieActor?> GetByIdAsync(int id)
     {
         return await _context.MovieActor.FirstOrDefaultAsync(i => i.Id == id);
     }
 
-    public async Task<MovieActor> GetByIdAsyncNoTracking(int id)
+    public async Task<MovieActor?> GetByIdAsyncNoTracking(int id)
     {
         return await _context.MovieActor.AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
     }
+    
+    public async Task<MovieActor?> GetByMovieAndActorIdAsync(int movieId, int actorId)
+    {
+        return await _context.MovieActor.FirstOrDefaultAsync(i => i.MovieId ==  movieId && i.ActorId == actorId);
+    }
 
-    public async Task<MovieActor> GetByActorIdAsync(int actorId)
+    public async Task<MovieActor?> GetByActorIdAsync(int actorId)
     {
         return await _context.MovieActor.FirstOrDefaultAsync(i => i.ActorId == actorId);
     }
 
-    public async Task<MovieActor> GetByMovieIdAsync(int movieId)
+    public async Task<MovieActor?> GetByMovieIdAsync(int movieId)
     {
         return await _context.MovieActor.FirstOrDefaultAsync(i => i.MovieId == movieId);
     }
