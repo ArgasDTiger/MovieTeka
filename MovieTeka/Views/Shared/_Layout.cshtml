@@ -13,24 +13,55 @@
 <body>
 <header>
     <nav class="nav container">
-        <a asp-controller="Home" asp-action="Index"><img src="~/images/Logo.png" alt=""></a>
-        <ul>
-            <li><a asp-controller="Home" asp-action="Index">Home</a></li><!--
-            --><li><a asp-controller="Movies" asp-action="Index">Movies</a></li><!--
-            --><li><a asp-controller="Actors" asp-action="Index">Actors</a></li>
-            
-        
+        <a asp-controller="Home" asp-action="Index"><img class="logo" src="~/images/special/Logo.png" alt=""></a>
+        <div class="nav-to-right">
         @if (User.Identity.IsAuthenticated)
         {
-            <li><a asp-controller="Account" asp-action="">Profile</a></li>
-            <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li><!--
+                --><li><a asp-controller="Movies" asp-action="Index">Movies</a></li><!--
+                --><li><a asp-controller="Actors" asp-action="Index">Actors</a></li>
+            </ul>
+            <img src="~/images/icons/user.png" class="nav-user-pic" onclick="toggleMenu()">
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <img src="~/images/icons/user.png" alt="">
+                        <h3>@User.Identity.Name</h3>
+                    </div>
+                    <hr>
+
+                    <a href="" class="sub-menu-link">
+                        <img src="~/images/icons/edit profile.svg" alt="">
+                        <p>Edit Profile</p>
+                        <span>></span>
+                    </a>
+
+                    <a href="" class="sub-menu-link">
+                        <img src="~/images/icons/settings.svg" alt="">
+                        <p>Settings</p>
+                        <span>></span>
+                    </a>
+
+                    <a class="sub-menu-link" asp-controller="Account" asp-action="Logout">
+                        <img src="~/images/icons/logout.svg" alt="">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
         }
         else
         {
-        <li><a asp-controller="Account" asp-action="Login">Login</a></li><!--
-        --><li><a asp-controller="Account" asp-action="Register">Register</a></li>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li><!--
+                --><li><a asp-controller="Movies" asp-action="Index">Movies</a></li><!--
+                --><li><a asp-controller="Actors" asp-action="Index">Actors</a></li><!--    
+                --><li><a asp-controller="Account" asp-action="Login">Login</a></li><!--
+                --><li><a asp-controller="Account" asp-action="Register">Register</a></li>
+            </ul>
         }
-        </ul>
+        </div>
     </nav>
 </header>
     <main role="main">
@@ -40,6 +71,15 @@
 <footer>
     &copy; 2023 - MovieTeka - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 </footer>
+
+<script>
+    let subMenu = document.getElementById("subMenu");
+
+    function toggleMenu(){
+        subMenu.classList.toggle("open-menu");
+    }
+</script>
+
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>

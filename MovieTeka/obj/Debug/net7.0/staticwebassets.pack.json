@@ -17,8 +17,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\Logo.png",
-      "PackagePath": "staticwebassets\\images\\Logo.png"
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\icons\\edit profile.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\edit profile.svg"
+    },
+    {
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\icons\\logout.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\logout.svg"
+    },
+    {
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\icons\\settings.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\settings.svg"
+    },
+    {
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\icons\\user.png",
+      "PackagePath": "staticwebassets\\images\\icons\\user.png"
+    },
+    {
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\icons\\user.svg",
+      "PackagePath": "staticwebassets\\images\\icons\\user.svg"
+    },
+    {
+      "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\images\\special\\Logo.png",
+      "PackagePath": "staticwebassets\\images\\special\\Logo.png"
     },
     {
       "Id": "D:\\AProgramming\\CSharp\\MVC Projects\\MovieTeka\\MovieTeka\\wwwroot\\js\\site.js",

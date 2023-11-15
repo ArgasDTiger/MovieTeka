@@ -35,4 +35,3 @@ function addTag(e) {
 
 
 actorsInput.addEventListener("keyup", addTag);
-
