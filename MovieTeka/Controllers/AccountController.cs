@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieTeka.Data;
+using MovieTeka.Interfaces;
 using MovieTeka.Models;
 using MovieTeka.ViewModels;
 
@@ -10,12 +11,26 @@ public class AccountController : Controller
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly IMovieRepository _movieRepository;
+    private readonly IActorRepository _actorRepository;
+    private readonly IFavoriteActorsIdRepository _favoriteActorsIdRepository;
+    private readonly IFavoriteMoviesIdRepository _favoriteMoviesIdRepository;
     private readonly ApplicationDbContext _context;
-    public AccountController(UserManager<AppUser> userManager,
-        SignInManager<AppUser> signInManager, ApplicationDbContext context)
+    
+    public AccountController(ApplicationDbContext context,
+        UserManager<AppUser> userManager,
+        SignInManager<AppUser> signInManager,
+        IMovieRepository movieRepository,
+        IActorRepository actorRepository,
+        IFavoriteActorsIdRepository favoriteActorsIdRepository,
+        IFavoriteMoviesIdRepository favoriteMoviesIdRepository)
     {
         _context = context;
         _signInManager = signInManager;
+        _movieRepository = movieRepository;
+        _actorRepository = actorRepository;
+        _favoriteActorsIdRepository = favoriteActorsIdRepository;
+        _favoriteMoviesIdRepository = favoriteMoviesIdRepository;
         _userManager = userManager;
     }
 
@@ -94,5 +109,19 @@ public class AccountController : Controller
         await _signInManager.SignOutAsync();
         return RedirectToAction("Index", "Home");
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> Profile()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        var userId = user.Id;
+        //TODO: add WatchList, FavoriteActors
+        ProfileViewModel profileVM = new ProfileViewModel
+        {
+            FavoriteMovies = await _favoriteMoviesIdRepository.GetAllMoviesByUserId(userId)
+        };
+        return View(profileVM);
+    }
+
     
 }

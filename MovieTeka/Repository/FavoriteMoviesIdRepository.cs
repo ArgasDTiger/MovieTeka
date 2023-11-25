@@ -12,6 +12,7 @@ public class FavoriteMoviesIdRepository : IFavoriteMoviesIdRepository
     {
         _context = context;
     }
+
     public async Task<FavoriteMoviesId> GetByIdAsync(int movieId, string userId)
     {
         return await _context.FavoriteMoviesId.FirstOrDefaultAsync(m => m.MovieId == movieId && m.AppUserId == userId);
@@ -19,6 +20,21 @@ public class FavoriteMoviesIdRepository : IFavoriteMoviesIdRepository
 
     public async Task<FavoriteMoviesId> IsInFavorites(int movieId, string userId)
     {
-        return  await _context.FavoriteMoviesId.FirstOrDefaultAsync(m => m.MovieId == movieId && m.AppUserId == userId);
+        return await _context.FavoriteMoviesId.FirstOrDefaultAsync(m => m.MovieId == movieId && m.AppUserId == userId);
     }
+
+    public async Task<List<Movie>> GetAllMoviesByUserId(string userId)
+    {
+        var movieIds = await _context.FavoriteMoviesId
+            .Where(m => m.AppUserId == userId)
+            .Select(m => m.MovieId)
+            .ToListAsync();
+
+        var listOfMovies = await _context.Movies
+            .Where(m => movieIds.Contains(m.Id))
+            .ToListAsync();
+
+        return listOfMovies;
+    }
+
 }

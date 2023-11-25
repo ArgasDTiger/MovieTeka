@@ -194,7 +194,6 @@ public class MoviesController : Controller
 
             return RedirectToAction("Index");
         }
-        
         return View(movieVM);
     }
     

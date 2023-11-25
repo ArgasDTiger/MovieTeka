@@ -1,0 +1,74 @@
+﻿@model MovieTeka.ViewModels.ProfileViewModel
+
+<main class="container">
+<div class="user-profile">
+    <img src="stylesheets/images/user.png" alt="">
+
+    <h3>@User.Identity.Name</h3>
+    <hr>
+
+</div>
+
+<div class="profile-lists">
+@* <hr> *@
+@* <h2>Watchlist:</h2> *@
+@* @if (Model.WatchList.Count != 0) *@
+@* { *@
+@*     @foreach (var movie in Model.WatchList) *@
+@*     { *@
+@*         <div class="columns"> *@
+@*             <img src="@movie.Image"> *@
+@*             <h5>@movie.Title</h5> *@
+@*         </div> *@
+@*     } *@
+@* *@
+@*     <a class="btn" href="">></a> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <h1>There are no movies in your Watchlist.</h1> *@
+@* } *@
+<hr>
+
+<h2>Favorite Movies:</h2>
+@if (Model.FavoriteMovies.Count != 0)
+{
+    @foreach (var movie in Model.FavoriteMovies)
+    {
+        <div class="columns">
+            <img src="@movie.Image">
+            <h5>@movie.Title</h5>
+        </div>
+    }
+
+    <a class="btn" href="">></a>
+}
+else
+{
+    <h1>There are no movies in your favorites.</h1>
+}
+
+@* <hr> *@
+@* *@
+@* <h2>Favorite Actors:</h2> *@
+@* @if (Model.FavoriteActors.Count != 0) *@
+@* { *@
+@*     @foreach (var actor in Model.FavoriteActors) *@
+@*     { *@
+@*         <div class="columns"> *@
+@*             <img src="@actor.Image"> *@
+@*             <h5>@actor.Name</h5> *@
+@*         </div> *@
+@*     } *@
+@* *@
+@*     <a class="btn" href="">></a> *@
+@* } *@
+@* else *@
+@* { *@
+@*     <h1>There are no movies in your favorites.</h1> *@
+@* } *@
+
+
+</div>
+
+</main>
